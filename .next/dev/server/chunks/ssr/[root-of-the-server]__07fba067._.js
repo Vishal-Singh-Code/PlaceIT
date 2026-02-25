@@ -1,0 +1,866 @@
+module.exports = [
+"[externals]/next/dist/shared/lib/no-fallback-error.external.js [external] (next/dist/shared/lib/no-fallback-error.external.js, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("next/dist/shared/lib/no-fallback-error.external.js", () => require("next/dist/shared/lib/no-fallback-error.external.js"));
+
+module.exports = mod;
+}),
+"[project]/app/layout.tsx [app-rsc] (ecmascript, Next.js Server Component)", ((__turbopack_context__) => {
+
+__turbopack_context__.n(__turbopack_context__.i("[project]/app/layout.tsx [app-rsc] (ecmascript)"));
+}),
+"[project]/lib/db/connection.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "connectToDatabase",
+    ()=>connectToDatabase
+]);
+var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs, [project]/node_modules/mongoose)");
+;
+const MONGODB_URI = process.env.MONGODB_URI;
+if (!MONGODB_URI) {
+    throw new Error("MONGODB_URI is not set in the environment");
+}
+let cached = global._mongoose;
+if (!cached) {
+    cached = global._mongoose = {
+        conn: null,
+        promise: null
+    };
+}
+async function connectToDatabase() {
+    if (cached.conn) {
+        return cached.conn;
+    }
+    if (!cached.promise) {
+        cached.promise = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["default"].connect(MONGODB_URI, {
+            dbName: "placeit"
+        });
+    }
+    cached.conn = await cached.promise;
+    return cached.conn;
+}
+}),
+"[project]/lib/db/models/AttemptAnalytics.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "AttemptAnalytics",
+    ()=>AttemptAnalytics
+]);
+var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs, [project]/node_modules/mongoose)");
+;
+const SectionStatsSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"]({
+    sectionId: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"].Types.ObjectId,
+        ref: "Section",
+        required: true
+    },
+    totalQuestions: {
+        type: Number,
+        required: true
+    },
+    correct: {
+        type: Number,
+        required: true
+    },
+    incorrect: {
+        type: Number,
+        required: true
+    },
+    unattempted: {
+        type: Number,
+        required: true
+    },
+    accuracy: {
+        type: Number,
+        required: true
+    },
+    totalTimeSeconds: {
+        type: Number,
+        required: true
+    },
+    avgTimePerQuestionSeconds: {
+        type: Number,
+        required: true
+    },
+    strengthLabel: String
+}, {
+    _id: false
+});
+const AttemptAnalyticsSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"]({
+    attemptId: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"].Types.ObjectId,
+        ref: "TestAttempt",
+        required: true,
+        unique: true
+    },
+    testTemplateId: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"].Types.ObjectId,
+        ref: "TestTemplate",
+        required: true
+    },
+    userId: {
+        type: String,
+        required: true
+    },
+    overallScore: {
+        type: Number,
+        required: true
+    },
+    totalQuestions: {
+        type: Number,
+        required: true
+    },
+    totalCorrect: {
+        type: Number,
+        required: true
+    },
+    totalIncorrect: {
+        type: Number,
+        required: true
+    },
+    totalUnattempted: {
+        type: Number,
+        required: true
+    },
+    accuracy: {
+        type: Number,
+        required: true
+    },
+    sectionStats: {
+        type: [
+            SectionStatsSchema
+        ],
+        required: true
+    },
+    percentile: Number,
+    rank: Number
+}, {
+    timestamps: true
+});
+AttemptAnalyticsSchema.index({
+    testTemplateId: 1,
+    userId: 1
+});
+const AttemptAnalytics = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["models"].AttemptAnalytics || (0, __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["model"])("AttemptAnalytics", AttemptAnalyticsSchema);
+}),
+"[project]/lib/db/models/TestAttempt.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "TestAttempt",
+    ()=>TestAttempt
+]);
+var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs, [project]/node_modules/mongoose)");
+;
+const TestAttemptSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"]({
+    testTemplateId: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["Schema"].Types.ObjectId,
+        ref: "TestTemplate",
+        required: true
+    },
+    userId: {
+        type: String,
+        required: true
+    },
+    startedAt: {
+        type: Date,
+        required: true
+    },
+    submittedAt: Date,
+    durationSeconds: Number,
+    status: {
+        type: String,
+        enum: [
+            "in_progress",
+            "submitted",
+            "auto_submitted"
+        ],
+        default: "in_progress"
+    }
+}, {
+    timestamps: true
+});
+TestAttemptSchema.index({
+    testTemplateId: 1,
+    userId: 1,
+    status: 1
+});
+const TestAttempt = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["models"].TestAttempt || (0, __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$2c$__$5b$project$5d2f$node_modules$2f$mongoose$29$__["model"])("TestAttempt", TestAttemptSchema);
+}),
+"[project]/lib/services/rankingService.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "computeRankAndPercentile",
+    ()=>computeRankAndPercentile,
+    "computeRankAndPercentileCore",
+    ()=>computeRankAndPercentileCore,
+    "getLeaderboard",
+    ()=>getLeaderboard
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$connection$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/db/connection.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$models$2f$AttemptAnalytics$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/db/models/AttemptAnalytics.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$models$2f$TestAttempt$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/db/models/TestAttempt.ts [app-rsc] (ecmascript)");
+;
+;
+;
+function computeRankAndPercentileCore(scores, targetAttemptId) {
+    const sorted = [
+        ...scores
+    ].sort((a, b)=>{
+        if (b.score !== a.score) {
+            return b.score - a.score;
+        }
+        const aDur = a.durationSeconds ?? Number.MAX_SAFE_INTEGER;
+        const bDur = b.durationSeconds ?? Number.MAX_SAFE_INTEGER;
+        return aDur - bDur;
+    });
+    const total = sorted.length;
+    const index = sorted.findIndex((s)=>s.attemptId === targetAttemptId);
+    if (index === -1) {
+        throw new Error("Target attempt not found in scores array");
+    }
+    const rank = index + 1;
+    const higherScoreCount = sorted.filter((s)=>s.score > sorted[index].score).length;
+    /**
+   * Percentile formula:
+   * percentile = 100 * (1 - higherScoreCount / totalAttempts)
+   *
+   * Intuition:
+   * - if no one scored higher, percentile = 100
+   * - if everyone scored higher, percentile approaches 0
+   */ const percentile = total === 0 ? 0 : 100 * (1 - higherScoreCount / total || 0);
+    return {
+        rank,
+        percentile
+    };
+}
+async function computeRankAndPercentile(testTemplateId, attemptId) {
+    await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$connection$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["connectToDatabase"])();
+    const [attempts, analytics] = await Promise.all([
+        __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$models$2f$TestAttempt$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["TestAttempt"].find({
+            testTemplateId,
+            status: {
+                $in: [
+                    "submitted",
+                    "auto_submitted"
+                ]
+            }
+        }).sort({
+            startedAt: 1
+        }),
+        __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$models$2f$AttemptAnalytics$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["AttemptAnalytics"].find({
+            testTemplateId
+        })
+    ]);
+    const analyticsByAttempt = new Map(analytics.map((a)=>[
+            a.attemptId.toString(),
+            a
+        ]));
+    const scores = attempts.map((attempt)=>{
+        const analyticsDoc = analyticsByAttempt.get(attempt._id.toString());
+        const score = analyticsDoc ? analyticsDoc.overallScore : 0;
+        const durationSeconds = attempt.durationSeconds ?? (attempt.submittedAt && attempt.startedAt ? Math.max(0, Math.round((attempt.submittedAt.getTime() - attempt.startedAt.getTime()) / 1000)) : null);
+        return {
+            attemptId: attempt._id.toString(),
+            score,
+            durationSeconds
+        };
+    });
+    const { rank, percentile } = computeRankAndPercentileCore(scores, attemptId);
+    const analyticsForAttempt = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$models$2f$AttemptAnalytics$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["AttemptAnalytics"].findOne({
+        attemptId
+    });
+    if (analyticsForAttempt) {
+        analyticsForAttempt.rank = rank;
+        analyticsForAttempt.percentile = percentile;
+        await analyticsForAttempt.save();
+    }
+    return {
+        rank,
+        percentile
+    };
+}
+async function getLeaderboard(testTemplateId, limit = 10) {
+    await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$connection$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["connectToDatabase"])();
+    const analytics = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$models$2f$AttemptAnalytics$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["AttemptAnalytics"].find({
+        testTemplateId
+    }).sort({
+        overallScore: -1,
+        createdAt: 1
+    }).limit(limit);
+    const attempts = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$models$2f$TestAttempt$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["TestAttempt"].find({
+        _id: {
+            $in: analytics.map((a)=>a.attemptId)
+        }
+    });
+    const attemptsById = new Map(attempts.map((a)=>[
+            a._id.toString(),
+            a
+        ]));
+    const entries = analytics.map((a, idx)=>{
+        const attempt = attemptsById.get(a.attemptId.toString());
+        return {
+            attemptId: a.attemptId.toString(),
+            userId: a.userId,
+            score: a.overallScore,
+            durationSeconds: attempt ? attempt.durationSeconds ?? null : null,
+            startedAt: attempt ? attempt.startedAt.toISOString() : "",
+            rank: idx + 1
+        };
+    });
+    return entries;
+}
+}),
+"[project]/app/attempts/[attemptId]/result/page.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>AttemptResultPage
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.react-server.js [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$connection$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/db/connection.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$models$2f$AttemptAnalytics$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/db/models/AttemptAnalytics.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$models$2f$TestAttempt$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/db/models/TestAttempt.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$services$2f$rankingService$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/services/rankingService.ts [app-rsc] (ecmascript)");
+;
+;
+;
+;
+;
+;
+async function AttemptResultPage(props) {
+    const params = await props.params;
+    await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$connection$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["connectToDatabase"])();
+    const attempt = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$models$2f$TestAttempt$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["TestAttempt"].findById(params.attemptId).lean();
+    if (!attempt) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+            className: "text-sm text-red-400",
+            children: "Attempt not found."
+        }, void 0, false, {
+            fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+            lineNumber: 17,
+            columnNumber: 12
+        }, this);
+    }
+    const analytics = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2f$models$2f$AttemptAnalytics$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["AttemptAnalytics"].findOne({
+        attemptId: attempt._id
+    }).lean();
+    if (!analytics) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+            className: "text-sm text-slate-400",
+            children: "Analytics not computed yet for this attempt."
+        }, void 0, false, {
+            fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+            lineNumber: 26,
+            columnNumber: 7
+        }, this);
+    }
+    const leaderboard = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$services$2f$rankingService$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getLeaderboard"])(analytics.testTemplateId.toString(), 10);
+    const completionLabel = attempt.status === "auto_submitted" ? "Auto-submitted" : "Completed";
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "space-y-6",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+                className: "rounded-lg border border-slate-800 bg-slate-900/40 p-4",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mb-2 flex items-center justify-between",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                        className: "text-lg font-semibold",
+                                        children: "Overall performance"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 45,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-xs text-slate-400",
+                                        children: [
+                                            "Attempt ID ",
+                                            attempt._id.toString().slice(-6)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 46,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                lineNumber: 44,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "rounded-full bg-slate-800 px-3 py-1 text-xs font-medium text-slate-100",
+                                children: completionLabel
+                            }, void 0, false, {
+                                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                lineNumber: 50,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                        lineNumber: 43,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mt-4 grid gap-4 md:grid-cols-4 text-sm",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-xs text-slate-400",
+                                        children: "Score"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 56,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-lg font-semibold text-sky-400",
+                                        children: [
+                                            analytics.overallScore,
+                                            " / ",
+                                            analytics.totalQuestions
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 57,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                lineNumber: 55,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-xs text-slate-400",
+                                        children: "Accuracy"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 62,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-lg font-semibold text-emerald-400",
+                                        children: [
+                                            (analytics.accuracy * 100).toFixed(1),
+                                            "%"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 63,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                lineNumber: 61,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-xs text-slate-400",
+                                        children: "Rank"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 68,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-lg font-semibold",
+                                        children: analytics.rank ? `#${analytics.rank}` : "-"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 69,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                lineNumber: 67,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-xs text-slate-400",
+                                        children: "Percentile"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 74,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-lg font-semibold",
+                                        children: analytics.percentile ? `${analytics.percentile.toFixed(1)}%` : "-"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 75,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                lineNumber: 73,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                        lineNumber: 54,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "mt-3 text-xs text-slate-500",
+                        children: "Percentile is computed as 100 × (1 − higherScoreCount / totalAttempts), where higherScoreCount is the number of attempts with a strictly higher score."
+                    }, void 0, false, {
+                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                        lineNumber: 82,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                lineNumber: 42,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+                className: "rounded-lg border border-slate-800 bg-slate-900/40 p-4",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                        className: "mb-3 text-sm font-semibold",
+                        children: "Section-wise breakdown"
+                    }, void 0, false, {
+                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                        lineNumber: 89,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "grid gap-3 md:grid-cols-3 text-xs",
+                        children: analytics.sectionStats.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "rounded border border-slate-800 bg-slate-900/60 p-3",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "mb-1 font-medium text-slate-200",
+                                        children: [
+                                            "Section ",
+                                            s.sectionId.toString().slice(-4)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 96,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "mb-1 text-slate-300",
+                                        children: [
+                                            "Accuracy:",
+                                            " ",
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "font-semibold text-emerald-400",
+                                                children: [
+                                                    (s.accuracy * 100).toFixed(1),
+                                                    "%"
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                                lineNumber: 101,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 99,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "mb-1 text-slate-300",
+                                        children: [
+                                            "Correct / Incorrect / Unattempted:",
+                                            " ",
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "font-mono",
+                                                children: [
+                                                    s.correct,
+                                                    " / ",
+                                                    s.incorrect,
+                                                    " / ",
+                                                    s.unattempted
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                                lineNumber: 107,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 105,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "mb-1 text-slate-300",
+                                        children: [
+                                            "Avg time/question:",
+                                            " ",
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "font-mono",
+                                                children: [
+                                                    s.avgTimePerQuestionSeconds.toFixed(1),
+                                                    "s"
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                                lineNumber: 113,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 111,
+                                        columnNumber: 15
+                                    }, this),
+                                    s.strengthLabel && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-sky-300",
+                                        children: s.strengthLabel
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 118,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, s.sectionId.toString(), true, {
+                                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                lineNumber: 92,
+                                columnNumber: 13
+                            }, this))
+                    }, void 0, false, {
+                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                        lineNumber: 90,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                lineNumber: 88,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+                className: "rounded-lg border border-slate-800 bg-slate-900/40 p-4",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mb-3 flex items-center justify-between",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                            className: "text-sm font-semibold",
+                            children: "Leaderboard (top 10)"
+                        }, void 0, false, {
+                            fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                            lineNumber: 127,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                        lineNumber: 126,
+                        columnNumber: 9
+                    }, this),
+                    leaderboard.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-xs text-slate-400",
+                        children: "Not enough attempts yet to build a leaderboard."
+                    }, void 0, false, {
+                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                        lineNumber: 130,
+                        columnNumber: 11
+                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "overflow-x-auto",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
+                            className: "min-w-full text-left text-xs",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
+                                    className: "border-b border-slate-800 text-slate-400",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                className: "px-2 py-1",
+                                                children: "Rank"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                                lineNumber: 138,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                className: "px-2 py-1",
+                                                children: "User"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                                lineNumber: 139,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                className: "px-2 py-1",
+                                                children: "Score"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                                lineNumber: 140,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                className: "px-2 py-1",
+                                                children: "Duration"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                                lineNumber: 141,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                className: "px-2 py-1",
+                                                children: "Started"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                                lineNumber: 142,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                        lineNumber: 137,
+                                        columnNumber: 17
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                    lineNumber: 136,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
+                                    children: leaderboard.map((entry)=>{
+                                        const isCurrent = entry.attemptId === attempt._id.toString();
+                                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                            className: isCurrent ? "bg-sky-500/10" : "border-b border-slate-900",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                    className: "px-2 py-1 font-semibold",
+                                                    children: [
+                                                        "#",
+                                                        entry.rank
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                                    lineNumber: 156,
+                                                    columnNumber: 23
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                    className: "px-2 py-1",
+                                                    children: [
+                                                        entry.userId,
+                                                        isCurrent && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: "ml-1 rounded bg-sky-500/20 px-1 text-[10px] text-sky-300",
+                                                            children: "You"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                                            lineNumber: 162,
+                                                            columnNumber: 27
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                                    lineNumber: 159,
+                                                    columnNumber: 23
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                    className: "px-2 py-1",
+                                                    children: entry.score
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                                    lineNumber: 167,
+                                                    columnNumber: 23
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                    className: "px-2 py-1",
+                                                    children: entry.durationSeconds !== null ? `${Math.round(entry.durationSeconds / 60)} min` : "-"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                                    lineNumber: 170,
+                                                    columnNumber: 23
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                    className: "px-2 py-1 text-slate-400",
+                                                    children: new Date(entry.startedAt).toLocaleString()
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                                    lineNumber: 177,
+                                                    columnNumber: 23
+                                                }, this)
+                                            ]
+                                        }, entry.attemptId, true, {
+                                            fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                            lineNumber: 150,
+                                            columnNumber: 21
+                                        }, this);
+                                    })
+                                }, void 0, false, {
+                                    fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                                    lineNumber: 145,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                            lineNumber: 135,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                        lineNumber: 134,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                lineNumber: 125,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "text-xs",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                    href: "/",
+                    className: "text-sky-400 hover:text-sky-300",
+                    children: "← Back to exams"
+                }, void 0, false, {
+                    fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                    lineNumber: 190,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+                lineNumber: 189,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/attempts/[attemptId]/result/page.tsx",
+        lineNumber: 41,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/attempts/[attemptId]/result/page.tsx [app-rsc] (ecmascript, Next.js Server Component)", ((__turbopack_context__) => {
+
+__turbopack_context__.n(__turbopack_context__.i("[project]/app/attempts/[attemptId]/result/page.tsx [app-rsc] (ecmascript)"));
+}),
+];
+
+//# sourceMappingURL=%5Broot-of-the-server%5D__07fba067._.js.map

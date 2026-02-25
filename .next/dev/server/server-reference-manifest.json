@@ -1,0 +1,94 @@
+{
+  "node": {
+    "4016ca7b6c5a15f74c7ad50c7e46c2b73f87ea06bb": {
+      "workers": {
+        "app/attempts/[attemptId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/attempts/[attemptId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/lib/actions/tests.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getTestAttemptView",
+          "filename": "lib/actions/tests.ts"
+        },
+        "app/tests/[testTemplateId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/tests/[testTemplateId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/lib/actions/tests.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getTestAttemptView",
+          "filename": "lib/actions/tests.ts"
+        }
+      },
+      "layer": {
+        "app/attempts/[attemptId]/page": "rsc",
+        "app/tests/[testTemplateId]/page": "rsc"
+      },
+      "filename": "lib/actions/tests.ts",
+      "exportedName": "getTestAttemptView"
+    },
+    "406b029178078a03f9ba4cc7f97d3352d92faf68b5": {
+      "workers": {
+        "app/attempts/[attemptId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/attempts/[attemptId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/lib/actions/tests.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "startTestAction",
+          "filename": "lib/actions/tests.ts"
+        },
+        "app/tests/[testTemplateId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/tests/[testTemplateId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/lib/actions/tests.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "startTestAction",
+          "filename": "lib/actions/tests.ts"
+        }
+      },
+      "layer": {
+        "app/attempts/[attemptId]/page": "rsc",
+        "app/tests/[testTemplateId]/page": "rsc"
+      },
+      "filename": "lib/actions/tests.ts",
+      "exportedName": "startTestAction"
+    },
+    "407f30009c3382cc7b728afcc4313cd00ad7eb03ca": {
+      "workers": {
+        "app/attempts/[attemptId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/attempts/[attemptId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/lib/actions/tests.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "finalSubmitAction",
+          "filename": "lib/actions/tests.ts"
+        },
+        "app/tests/[testTemplateId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/tests/[testTemplateId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/lib/actions/tests.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "finalSubmitAction",
+          "filename": "lib/actions/tests.ts"
+        }
+      },
+      "layer": {
+        "app/attempts/[attemptId]/page": "action-browser",
+        "app/tests/[testTemplateId]/page": "rsc"
+      },
+      "filename": "lib/actions/tests.ts",
+      "exportedName": "finalSubmitAction"
+    },
+    "40f0e3f9bc904b095a1a58608754399438ddc308a9": {
+      "workers": {
+        "app/attempts/[attemptId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/attempts/[attemptId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/lib/actions/tests.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "submitAnswerAction",
+          "filename": "lib/actions/tests.ts"
+        },
+        "app/tests/[testTemplateId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/tests/[testTemplateId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/lib/actions/tests.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "submitAnswerAction",
+          "filename": "lib/actions/tests.ts"
+        }
+      },
+      "layer": {
+        "app/attempts/[attemptId]/page": "action-browser",
+        "app/tests/[testTemplateId]/page": "rsc"
+      },
+      "filename": "lib/actions/tests.ts",
+      "exportedName": "submitAnswerAction"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "2KaMBtuxx/CYdx4v6z04zDt+rGtZbedK1of9unx7iCU="
+}
